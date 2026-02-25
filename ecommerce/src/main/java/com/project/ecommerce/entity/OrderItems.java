@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class OrderItems {
 
     @Id
@@ -32,6 +33,6 @@ public class OrderItems {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    private Product products;
+    private Product product;
 
 }

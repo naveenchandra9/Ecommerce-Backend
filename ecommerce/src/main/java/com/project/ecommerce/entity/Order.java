@@ -19,6 +19,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Order {
 
     @Id
@@ -34,7 +35,7 @@ public class Order {
 
     @DateTimeFormat
     @Column
-    private Date order_date;
+    private LocalDateTime order_date;
 
     @CreationTimestamp
     private LocalDateTime created_at;
