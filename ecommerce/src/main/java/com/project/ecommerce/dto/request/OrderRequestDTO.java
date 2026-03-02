@@ -18,9 +18,8 @@ import java.util.List;
 public class OrderRequestDTO {
 
     @NotNull(message = "UserId is required")
-    private int userId;
+    private Long userId;
 
-    @NotNull(message = "Order date is required")
     private LocalDateTime createdAt;
 
     @NotEmpty
@@ -34,7 +33,7 @@ public class OrderRequestDTO {
     public static class OrderItemDTO{
 
         @NotNull(message = "ProductId is required")
-        private int productId;
+        private Long productId;
 
         @NotNull(message = "Quantity is required")
         @Min(value = 0, message = "Minimum 1 quantity must be added")

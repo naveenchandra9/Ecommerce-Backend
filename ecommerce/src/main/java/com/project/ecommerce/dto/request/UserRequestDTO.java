@@ -20,7 +20,7 @@ public class UserRequestDTO {
     @Email(message = "Invalid Email format")
     private String email;
 
-    @Nullable
+    @NotBlank
     @Pattern(regexp = "^[0-9]{10,15}$", message = "Phone must be 10 - 15 digits")
-    private Long contact;
+    private String contact;
 }

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface OrderRepo extends JpaRepository<Order, Integer> {
+public interface OrderRepo extends JpaRepository<Order, Long> {
 
-    List<Order> findByUserId(int user_id);
+    List<Order> findByUserId(Long user_id);
 }

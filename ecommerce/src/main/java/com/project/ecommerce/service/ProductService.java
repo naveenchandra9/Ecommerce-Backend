@@ -88,7 +88,7 @@ public class ProductService {
      * Get product by ID
      */
     @Transactional(readOnly = true)
-    public ProductResponseDTO getProductById(int id){
+    public ProductResponseDTO getProductById(Long id){
         Product product = productRepo.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found with ID: "+id));
 
@@ -108,7 +108,7 @@ public class ProductService {
      * Update product
      */
     @Transactional
-    public ProductResponseDTO updateProduct(int id, ProductRequestDTO productRequestDTO){
+    public ProductResponseDTO updateProduct(Long id, ProductRequestDTO productRequestDTO){
         Product product = productRepo.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product with id: "+id +" not found"));
         product.setName(productRequestDTO.getName());
@@ -130,7 +130,7 @@ public class ProductService {
      * Soft delete product (mark as inactive)
      */
     @Transactional
-    public void deleteProduct(int id){
+    public void deleteProduct(Long id){
         Product product = productRepo.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product with id: "+id +" not found"));
 

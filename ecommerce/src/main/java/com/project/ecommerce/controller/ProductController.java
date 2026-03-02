@@ -35,7 +35,7 @@ public class ProductController {
      * GET /api/products/{id} - Get product by ID
      */
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponseDTO> getProduct(@PathVariable  int id){
+    public ResponseEntity<ProductResponseDTO> getProduct(@PathVariable  Long id){
         ProductResponseDTO responseDTO = productService.getProductById(id);
         return ResponseEntity.ok(responseDTO);
     }
@@ -53,7 +53,7 @@ public class ProductController {
      * PUT /api/products/{id} - Update product
      */
     @PutMapping("/{id}")
-    public ResponseEntity<ProductResponseDTO> updateProduct(@PathVariable int id, @Valid @RequestBody ProductRequestDTO productRequestDTO){
+    public ResponseEntity<ProductResponseDTO> updateProduct(@PathVariable Long id, @Valid @RequestBody ProductRequestDTO productRequestDTO){
         ProductResponseDTO responseDTO = productService.updateProduct(id, productRequestDTO);
         return ResponseEntity.ok(responseDTO);
     }
@@ -62,7 +62,7 @@ public class ProductController {
      * DELETE /api/products/{id} - Soft delete product
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(int id){
+    public ResponseEntity<Void> deleteProduct(Long id){
         productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }

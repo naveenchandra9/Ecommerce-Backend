@@ -2,6 +2,7 @@ package com.project.ecommerce.dto.request;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 @Getter
@@ -15,6 +16,6 @@ public class CategoryRequestDTO {
     private String name;
 
     @NotBlank(message = "Description should be of minimum 50 characters")
-    @Min(50)
+    @Size(min = 10)
     private String description;
 }
