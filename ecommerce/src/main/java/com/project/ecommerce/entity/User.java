@@ -31,11 +31,11 @@ public class User {
     private String email;
 
     @Column(nullable = false, length = 10)
-    private Long phone;
+    private String contact;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
-    private LocalDateTime created_at;
+    private LocalDateTime createdAt;
 
     @UpdateTimestamp
     @Column(name = "updated_at")

@@ -9,6 +9,7 @@ import com.project.ecommerce.entity.User;
 import com.project.ecommerce.exception.InsufficientStockException;
 import com.project.ecommerce.exception.OrderNotFoundException;
 import com.project.ecommerce.exception.ProductNotFoundException;
+import com.project.ecommerce.repository.OrderItemsRepo;
 import com.project.ecommerce.repository.OrderRepo;
 import com.project.ecommerce.repository.ProductRepo;
 import com.project.ecommerce.repository.UserRepo;
@@ -32,12 +33,14 @@ public class OrderService {
     private final OrderRepo orderRepo;
     private final ProductRepo productRepo;
     private final UserRepo userRepo;
+    private final OrderItemsRepo orderItemsRepo;
     private final ModelMapper modelMapper;
 
-    public OrderService(OrderRepo orderRepo, ProductRepo productRepo, UserRepo userRepo, ModelMapper modelMapper){
+    public OrderService(OrderRepo orderRepo, ProductRepo productRepo, UserRepo userRepo, OrderItemsRepo orderItemsRepo, ModelMapper modelMapper){
         this.orderRepo = orderRepo;
         this.productRepo = productRepo;
         this.userRepo = userRepo;
+        this.orderItemsRepo = orderItemsRepo;
         this.modelMapper = modelMapper;
     }
 
@@ -107,7 +110,7 @@ public class OrderService {
      * Propagation.REQUIRES_NEW: Always create new transaction
      */
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public OrderResponseDTO cancelOrder(int orderId){
+    public OrderResponseDTO cancelOrder(Long orderId){
         logger.info("Cancelling order for id: {}", orderId);
 
         // Check if order exists
@@ -143,7 +146,7 @@ public class OrderService {
      * Get order by ID
      */
     @Transactional(readOnly = true)
-    public OrderResponseDTO getOrderById(int orderId){
+    public OrderResponseDTO getOrderById(Long orderId){
         Order order = orderRepo.findById(orderId)
                 .orElseThrow(() -> new OrderNotFoundException("Order with id: "+orderId +" not found"));
 
@@ -153,7 +156,7 @@ public class OrderService {
     /**
      * Get all orders for a user
      */
-    public List<OrderResponseDTO> getUserOrders(int userId){
+    public List<OrderResponseDTO> getUserOrders(Long userId){
         List<Order> orders = orderRepo.findByUserId(userId);
         return orders.stream()
                 .map(this::convertToResponseDTO)

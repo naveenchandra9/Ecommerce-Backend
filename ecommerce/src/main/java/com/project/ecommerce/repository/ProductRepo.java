@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 
 @Repository
-public interface ProductRepo extends JpaRepository<Product, Integer> {
+public interface ProductRepo extends JpaRepository<Product, Long> {
 
     //find all active products
     Page<Product> findByActiveTrue(Pageable pageable);

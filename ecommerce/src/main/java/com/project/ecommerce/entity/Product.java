@@ -22,7 +22,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(nullable = false, length = 50)
     private String name;
@@ -49,6 +49,6 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @OneToMany(mappedBy = "products", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<OrderItems> orderItems = new ArrayList<>();
 }

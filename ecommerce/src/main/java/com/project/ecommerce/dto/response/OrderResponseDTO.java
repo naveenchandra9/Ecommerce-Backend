@@ -19,10 +19,15 @@ public class OrderResponseDTO {
     private String userName;
     private LocalDateTime orderDate;
     private String status;
-    private BigDecimal orderAmount;
+    private BigDecimal total_amount;
     private List<OrderItemsResponseDTO> orderItems;
 
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
     public static class OrderItemsResponseDTO {
 
         private int productId;
