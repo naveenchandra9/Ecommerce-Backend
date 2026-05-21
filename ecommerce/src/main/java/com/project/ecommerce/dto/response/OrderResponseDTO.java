@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class OrderResponseDTO {
 
     private int id;
@@ -28,6 +29,7 @@ public class OrderResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
+    @ToString
     public static class OrderItemsResponseDTO {
 
         private int productId;

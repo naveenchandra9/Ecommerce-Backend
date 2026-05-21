@@ -15,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class OrderRequestDTO {
 
     @NotNull(message = "UserId is required")
@@ -30,6 +31,7 @@ public class OrderRequestDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     @Builder
+    @ToString
     public static class OrderItemDTO{
 
         @NotNull(message = "ProductId is required")

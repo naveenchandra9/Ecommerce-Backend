@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class ProductRequestDTO {
 
     @NotBlank(message = "Product Name is required")
