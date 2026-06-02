@@ -9,6 +9,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
+
 public class UserResponseDTO {
 
     private Long id;

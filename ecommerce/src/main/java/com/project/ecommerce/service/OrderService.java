@@ -16,7 +16,9 @@ import com.project.ecommerce.repository.UserRepo;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,12 +46,15 @@ public class OrderService {
         this.modelMapper = modelMapper;
     }
 
+    @Autowired
+    EmailService emailService;
+
     /**
      * Create order - Transactional operation
      * Propagation.REQUIRED (default): Use existing transaction or create new
      * Isolation.READ_COMMITTED: Prevent dirty reads
      */
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
     public OrderResponseDTO createOrder(OrderRequestDTO orderRequestDTO){
         logger.info("Creating order for user: {}", orderRequestDTO.getUserId());
 
@@ -102,6 +107,8 @@ public class OrderService {
 
         logger.info("Order created successfully: {}", savedOrder.getId());
 
+        emailService.sendOrderConfirmationEmail(savedOrder.getUser().getEmail(), savedOrder.getUser().getName(), savedOrder.getId());
+
         return convertToResponseDTO(savedOrder);
     }
 
@@ -109,7 +116,7 @@ public class OrderService {
      * Cancel order - Restore stock (Transactional rollback scenario)
      * Propagation.REQUIRES_NEW: Always create new transaction
      */
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional(propagation = Propagation.REQUIRES_NEW, isolation = Isolation.SERIALIZABLE)
     public OrderResponseDTO cancelOrder(Long orderId){
         logger.info("Cancelling order for id: {}", orderId);
 
@@ -145,7 +152,7 @@ public class OrderService {
     /**
      * Get order by ID
      */
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
     public OrderResponseDTO getOrderById(Long orderId){
         Order order = orderRepo.findById(orderId)
                 .orElseThrow(() -> new OrderNotFoundException("Order with id: "+orderId +" not found"));
