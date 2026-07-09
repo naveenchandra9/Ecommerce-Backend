@@ -24,4 +24,8 @@ public class UserRequestDTO {
     @NotBlank
     @Pattern(regexp = "^[0-9]{10,15}$", message = "Phone must be 10 - 15 digits")
     private String contact;
+
+    @NotBlank
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,}$", message = "Not following password policy")
+    private String password;
 }

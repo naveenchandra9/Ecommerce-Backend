@@ -1,7 +1,9 @@
 package com.project.ecommerce.entity;
 
+import com.project.ecommerce.enums.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -43,4 +45,10 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> order = new ArrayList<>();
+
+    @NotBlank
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
