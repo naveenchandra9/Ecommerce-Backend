@@ -7,6 +7,7 @@ import com.project.ecommerce.repository.UserRepo;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,10 +18,12 @@ public class UserService {
 
     private final UserRepo userRepo;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepo userRepo, ModelMapper modelMapper){
+    public UserService(UserRepo userRepo, ModelMapper modelMapper, PasswordEncoder passwordEncoder){
         this.userRepo = userRepo;
         this.modelMapper = modelMapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -34,6 +37,7 @@ public class UserService {
                 .name(userRequestDTO.getName())
                 .contact(userRequestDTO.getContact())
                 .email(userRequestDTO.getEmail())
+                .password(passwordEncoder.encode(userRequestDTO.getPassword()))
                 .build();
 
         User savedUser = userRepo.save(user);
